@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "3percentMobile",
+    "slug": "3percent",
+    "version": "1.0.0",
+    "sdkVersion": "43.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "description": ""
+  },
+  "name": "3percent"
+}
