@@ -60,41 +60,6 @@ router.post('/', [
             const userDetails = user.Email;
 
 
-            // Your user is created
-            // Now lets send them an email
-
-            var mailOptions = {
-                from: 'the3percent Team', // sender address
-                to: Email, // This can also contain an array of emails
-                subject: 'Thanks for Registering with the3percent',
-                // text: 'Hello world ?', // plaintext body
-                html:
-                    `
-                    <tr>
-                        <h1>WELCOME to the3percent!</h1>
-                    </tr>
-
-                    Link =  "https://the3percentapp.herokuapp.com/clientconfirmation
-              
-                `
-            };
-            var transporter = nodemailer.createTransport(smtpTransport({
-                service: 'gmail',
-                auth: {
-                    user: 'madhuka@xdigital.solutions',
-                    pass: 'Virajith@#$%2260'
-                }
-            }))
-
-            // send mail with defined transport object
-            transporter.sendMail(mailOptions, function (error, info) {
-                if (error) {
-                    return console.log(error);
-                }
-                console.log('Message sent: ' + info.response);
-            });
-
-
             // Return jsonwebtoken
             const payload = {
                 user: {
