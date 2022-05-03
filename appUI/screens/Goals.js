@@ -34,7 +34,7 @@ const Goals = () => {
                         marginLeft: SIZES.padding
                     }}
                 >
-                    Add Images
+                    NOTES
                 </Text>
             </View>
         </View>

@@ -180,7 +180,7 @@ const Profile = () => {
                                     paddingLeft: 10,
                                     paddingBottom: 10
                                 }}
-                            >Goals</Text>
+                            >Notes</Text>
                         </ImageBackground>
                     </View>
                 </TouchableOpacity>

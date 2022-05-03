@@ -40,7 +40,15 @@ const Subjects = () => {
                 >
                     {/* Welcome Text */}
                     <WelcomeHeader />
-
+                    <Text
+                        style={{
+                            ...FONTS.h2,
+                            marginTop: SIZES.padding,
+                            marginLeft: SIZES.padding
+                        }}
+                    >
+                        Subjects
+                    </Text>
                     <View
                         style={{
                             marginTop: SIZES.padding * 0.5
