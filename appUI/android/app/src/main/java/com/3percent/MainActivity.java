@@ -1,4 +1,4 @@
-package com.3percent;
+package com.percent;
 
 import android.os.Bundle;
 
