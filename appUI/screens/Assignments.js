@@ -113,7 +113,7 @@ const Assignments = () => {
 					}}
 				/>
 
-				<Text selectable>Result: {result[0].name}</Text>
+				<Text selectable>Result: {result && result[0]?.name}</Text>
 				<TextButton
 					label="Submit"
 					buttonContainerStyle={{
