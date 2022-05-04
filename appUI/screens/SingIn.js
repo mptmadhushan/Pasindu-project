@@ -41,8 +41,8 @@ const SignIn = () => {
 		// const password = password;
 
 		const payload = {
-			username: 'dev',
-			password: 'Passport@1'
+			username: email,
+			password: password
 		};
 		console.log('send data', payload);
 
@@ -56,7 +56,7 @@ const SignIn = () => {
 			if (error.response) {
 				console.log(error.response.data);
 				// Toast.showWithGravity(error.response.data.message, Toast.LONG, Toast.TOP);
-
+				setEmailError('error');
 				console.log(error.response);
 				// console.log(error.response.headers);
 			}
@@ -72,7 +72,7 @@ const SignIn = () => {
 			<View
 				style={{
 					flex: 1,
-					marginTop: SIZES.padding * 2
+					marginTop: SIZES.padding * 1
 				}}
 			>
 				{/* Form inputs */}
@@ -82,7 +82,7 @@ const SignIn = () => {
 					autoCompleteType="email"
 					onChange={(value) => {
 						// Validate email
-						// utils.validateEmail(value, setEmailError);
+						// utils.validateE mail(value, setEmailError);
 						setEmail(value);
 					}}
 					errorMsg={emailError}
@@ -164,12 +164,12 @@ const SignIn = () => {
 					buttonContainerStyle={{
 						height: 55,
 						alignItems: 'center',
-						marginTop: SIZES.padding * 6,
+						marginTop: SIZES.padding * 1.5,
 						borderRadius: SIZES.radius,
 						backgroundColor: COLORS.primary
 					}}
-					// onPress={() => onPressLogin()}
-					onPress={() => navigation.replace('Home')}
+					onPress={() => onPressLogin()}
+					// onPress={() => navigation.replace('Home')}
 				/>
 			</View>
 		</AuthLayout>

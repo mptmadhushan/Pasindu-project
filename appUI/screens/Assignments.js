@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState, useCallback, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/core';
-import { View, Text, Button } from 'react-native';
+import { View, Text, StyleSheet, Linking, TouchableOpacity, FlatList, Button } from 'react-native';
 import axios from 'axios';
 
 import { WelcomeHeader, TextButton } from '../components';
@@ -16,6 +16,7 @@ import DocumentPicker, {
 const Assignments = () => {
 	const navigation = useNavigation();
 	const [ fileResponse, setFileResponse ] = useState([]);
+	const [ links, setLinks ] = useState([]);
 
 	useLayoutEffect(() => {
 		navigation.setOptions({
@@ -58,22 +59,21 @@ const Assignments = () => {
 			name: 'pdf.name'
 		});
 		fetch('https://word-extraction.herokuapp.com/api/v1.0/keywords-extraction/', {
-			method: 'post',
+			method: 'POST',
 			headers: {
+				// Accept: 'application/json',
 				'Content-Type': 'multipart/form-data'
 			},
 			body: formData
 		})
-			.then((res) => {
-				const data = JSON.parse(res);
-				console.log('resp', res);
-				console.log('resp data', data);
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+				setLinks(data.links);
 			})
-			.catch(function(error) {
-				console.log('There has been a problem with your fetch operation: ' + error.message);
-				throw error;
-			});
+			.catch((err) => console.error('ERR-->>', err));
 	};
+
 	return (
 		<View>
 			<View
@@ -92,8 +92,18 @@ const Assignments = () => {
 					|keywords-extraction
 				</Text>
 
-				<Button
-					title="open picker for single selection of pdf file"
+				<TextButton
+					buttonContainerStyle={{
+						width: SIZES.width * 0.8,
+						marginInline: SIZES.width * 0.8,
+						height: 55,
+						alignItems: 'center',
+						marginTop: SIZES.padding,
+						marginLeft:SIZES.width * 0.1,
+						borderRadius: SIZES.radius,
+						backgroundColor: COLORS.primary
+					}}
+					label="please select pdf file"
 					onPress={() => {
 						DocumentPicker.pick({
 							type: types.pdf
@@ -103,22 +113,56 @@ const Assignments = () => {
 					}}
 				/>
 
-				{/* <Text selectable>Result: {JSON.stringify(result, null, 2)}</Text> */}
+				<Text selectable>Result: {result[0].name}</Text>
 				<TextButton
 					label="Submit"
 					buttonContainerStyle={{
+						width: SIZES.width * 0.8,
+						marginInline: SIZES.width * 0.8,
 						height: 55,
 						alignItems: 'center',
-						marginTop: SIZES.padding * 6,
+						marginTop: SIZES.padding,
+						marginLeft:SIZES.width * 0.1,
 						borderRadius: SIZES.radius,
 						backgroundColor: COLORS.primary
 					}}
 					// onPress={() => onPressLogin()}
 					onPress={() => upload()}
 				/>
+				{links && (
+					<View>
+						<FlatList
+							data={links}
+							renderItem={({ item }) => (
+								<TouchableOpacity
+									onPress={() =>
+										Linking.canOpenURL(item).then((supported) => {
+											if (supported) {
+												Linking.openURL(item);
+											} else {
+												console.log("Don't know how to open URI: " + item);
+											}
+										})}
+								>
+									<Text style={styles.item}>{item}</Text>
+								</TouchableOpacity>
+							)}
+						/>
+					</View>
+				)}
 			</View>
 		</View>
 	);
 };
-
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		paddingTop: 22
+	},
+	item: {
+		padding: 10,
+		fontSize: 18,
+		height: 44
+	}
+});
 export default Assignments;

@@ -9,10 +9,7 @@ import { COLORS, FONTS, SIZES ,images} from "../constants";
 
 const CategoryCard = ({ category, containerStyle ,data_type}) => {
 
-    var outOff = 30;
-    var value = 1;
-    var result = (value * 100) / outOff;
-    var result2 =((30 - 20) / 30) * 100;
+    var progress =((30 - category?.available_days) / 30) * 100;
 
     return (
         <TouchableOpacity>
@@ -78,7 +75,7 @@ const CategoryCard = ({ category, containerStyle ,data_type}) => {
                         color: COLORS.black
                     }}
                 >
-                   completed: {Math.round(result2)}%
+                   completed: {Math.round(progress)}%
                 </Text>
             </ImageBackground>
         </TouchableOpacity>
