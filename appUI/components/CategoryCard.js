@@ -1,7 +1,7 @@
 import React ,{useState} from 'react';
 import {
     TouchableOpacity,
-    Text,
+    Text,Linking,
     ImageBackground
 } from 'react-native';
 
@@ -83,9 +83,8 @@ const [postponed, setPostponed] = useState(false);
                {data_type==='home'&& <TextButton
 						label="Move to next day"
 						buttonContainerStyle={{
-						height: 35,
+						height: 25,
 						alignItems: 'center',
-						marginTop: SIZES.padding,
 						borderRadius: SIZES.radius,
 						backgroundColor: COLORS.primary
 					}}
@@ -94,6 +93,28 @@ const [postponed, setPostponed] = useState(false);
 							...FONTS.body4
 						}}
 						onPress={() => moveToNextDay('hey')}
+					/>} 
+                    {data_type==='home'&& <TextButton
+						label="Download Pdf"
+						buttonContainerStyle={{
+						height: 30,
+						alignItems: 'center',
+						marginTop:4,
+						borderRadius: SIZES.radius,
+						backgroundColor: COLORS.primary
+					}}
+						labelStyle={{
+							color: COLORS.white,
+							...FONTS.body4
+						}}
+						onPress={() =>
+										Linking.canOpenURL('https://word-extraction.herokuapp.com/'+category.file).then((supported) => {
+											if (supported) {
+												Linking.openURL('https://word-extraction.herokuapp.com/'+category.file);
+											} else {
+												console.log("Don't know how to open URI: " + category.file);
+											}
+										})}
 					/>}
                     {data_type==='moved' && <TextButton
 						label="Time doubled"

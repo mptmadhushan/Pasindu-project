@@ -66,13 +66,13 @@ const HomeScreen = () => {
 
 					<View
 						style={{
-							marginTop: SIZES.padding * 0.9
+							marginTop: 10
 						}}
 					>
 						<ScrollView horizontal={true} style={{ width: SIZES.width }}>
 							<FlatList
 								data={assignment}
-								numColumns={2}
+								numColumns={30}
 								scrollEnabled={false}
 								listKey="categories"
 								keyExtractor={(item) => `categories-${item.id}`}
@@ -112,14 +112,14 @@ const HomeScreen = () => {
 					{/* )} */}
 					<View
 						style={{
-							marginTop: SIZES.padding * 0.9
+							marginTop: 10
 						}}
 					>
 						{/* {theArray && ( */}
 						<ScrollView horizontal={true} style={{ width: SIZES.width }}>
 							<FlatList
 								data={theArray}
-								numColumns={2}
+								numColumns={30}
 								scrollEnabled={false}
 								listKey="categories"
 								keyExtractor={(item) => `categories-${item.id}`}

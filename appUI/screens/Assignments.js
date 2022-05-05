@@ -89,7 +89,7 @@ const Assignments = () => {
 						marginLeft: SIZES.padding
 					}}
 				>
-					|keywords-extraction
+					keywords-extraction
 				</Text>
 
 				<TextButton
@@ -113,7 +113,11 @@ const Assignments = () => {
 					}}
 				/>
 
-				<Text selectable>Result: {result && result[0]?.name}</Text>
+				{result[0]?.name&&<Text style={{
+						...FONTS.h4,
+						marginTop: SIZES.padding,
+						textAlign: 'center'
+					}} selectable>Result: {result && result[0]?.name}</Text>}
 				<TextButton
 					label="Submit"
 					buttonContainerStyle={{
@@ -135,6 +139,7 @@ const Assignments = () => {
 							data={links}
 							renderItem={({ item }) => (
 								<TouchableOpacity
+								style={{marginTop:10,marginLeft:SIZES.width * 0.1,width: SIZES.width * 0.8,borderColor:COLORS.gray2,borderWidth:1,borderRadius:20}}
 									onPress={() =>
 										Linking.canOpenURL(item).then((supported) => {
 											if (supported) {
@@ -144,7 +149,11 @@ const Assignments = () => {
 											}
 										})}
 								>
-									<Text style={styles.item}>{item}</Text>
+									<Text style={{
+						...FONTS.body5,
+						textAlign: 'center'
+					}}>{item}</Text>
+				
 								</TouchableOpacity>
 							)}
 						/>
