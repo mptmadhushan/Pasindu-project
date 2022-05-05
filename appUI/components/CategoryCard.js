@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import {
     TouchableOpacity,
     Text,
@@ -6,11 +6,13 @@ import {
 } from 'react-native';
 
 import { COLORS, FONTS, SIZES ,images} from "../constants";
-
-const CategoryCard = ({ category, containerStyle ,data_type}) => {
-
+import TextButton from '../components/TextButton';
+const CategoryCard = ({ category, containerStyle ,data_type,moveToNextDay}) => {
+const [postponed, setPostponed] = useState(false);
     var progress =((30 - category?.available_days) / 30) * 100;
-
+ const nextDay = () => {
+    setPostponed(true);
+ }
     return (
         <TouchableOpacity>
             <ImageBackground
@@ -77,6 +79,38 @@ const CategoryCard = ({ category, containerStyle ,data_type}) => {
                 >
                    completed: {Math.round(progress)}%
                 </Text>
+              
+               {data_type==='home'&& <TextButton
+						label="Move to next day"
+						buttonContainerStyle={{
+						height: 35,
+						alignItems: 'center',
+						marginTop: SIZES.padding,
+						borderRadius: SIZES.radius,
+						backgroundColor: COLORS.primary
+					}}
+						labelStyle={{
+							color: COLORS.white,
+							...FONTS.body4
+						}}
+						onPress={() => moveToNextDay('hey')}
+					/>}
+                    {data_type==='moved' && <TextButton
+						label="Time doubled"
+						buttonContainerStyle={{
+						height: 35,
+						alignItems: 'center',
+						marginTop: SIZES.padding,
+						borderRadius: SIZES.radius,
+						backgroundColor: COLORS.primary
+					}}
+						labelStyle={{
+							color: COLORS.white,
+							...FONTS.body4
+						}}
+						
+					/>}
+            
             </ImageBackground>
         </TouchableOpacity>
     )

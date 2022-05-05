@@ -25,7 +25,7 @@ const Subjects = () => {
 			headerShown: false
 		});
 		setClientToken(
-			'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUxODg1MTU3LCJqdGkiOiI4ZmI3ZjA0YTVjMjU0YjhlYTA4NDIxNTQ4MWQzMWUxMiIsInVzZXJfaWQiOjJ9.dU8onJR2x8JMRY_fcM925VuDwyuK1NRDR8dfU-UZ-V0'
+			'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUxOTkzNTI2LCJqdGkiOiJlZDBjOTRlMGM4Njg0MmU1ODI4NWM0NTI0NmJlMjgzMiIsInVzZXJfaWQiOjF9.g8de3LnNuiHnDyXnXXcuRzQ8avW-zXBfpjWWbuD1aec'
 		);
 		getAssignments();
 	}, []);

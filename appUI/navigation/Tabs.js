@@ -87,7 +87,7 @@ const Tabs = () => {
                 }}
             />
             <Tab.Screen
-                name="Subjects"
+                name="Notes"
                 component={Subjects}
                 options={{
                     tabBarIcon: ({ focused }) => (

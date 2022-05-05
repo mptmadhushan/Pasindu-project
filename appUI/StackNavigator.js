@@ -13,6 +13,7 @@ import Otp from './screens/Otp';
 import AddImages from './screens/AddImages';
 import AddBodyFacts from './screens/AddBodyFacts';
 import Goals from './screens/Goals';
+import CrudScreen from './screens/CrudScreen';
 
 import Tabs from "./navigation/Tabs"
 
@@ -30,10 +31,11 @@ const StackNavigator = () => {
         >
             {user ? (
                 <>
+                <Stack.Screen name="Home" component={HomeScreen} component={Tabs} />
 
+                {/* <Stack.Screen name="CrudScreen" component={CrudScreen} /> */}
                     <Stack.Screen name="SignIn" component={SignIn} />
                     <Stack.Screen name="HomeMenu" component={HomeMenu} />
-                    <Stack.Screen name="Home" component={HomeScreen} component={Tabs} />
                     <Stack.Screen name="Profile" component={Profile} />
                     <Stack.Screen name="Subjects" component={Subjects} />
                     <Stack.Screen name="Assignments" component={Assignments} />

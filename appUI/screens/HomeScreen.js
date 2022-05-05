@@ -20,13 +20,13 @@ import APIKit, { setClientToken } from '../helpers/apiKit';
 const HomeScreen = () => {
 	const navigation = useNavigation();
 	const [ assignment, setAssignment ] = React.useState('');
-
+	const [ theArray, setTheArray ] = React.useState('');
 	useLayoutEffect(() => {
 		navigation.setOptions({
 			headerShown: false
 		});
 		setClientToken(
-			'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUxODg1MTU3LCJqdGkiOiI4ZmI3ZjA0YTVjMjU0YjhlYTA4NDIxNTQ4MWQzMWUxMiIsInVzZXJfaWQiOjJ9.dU8onJR2x8JMRY_fcM925VuDwyuK1NRDR8dfU-UZ-V0'
+			'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUxOTkzNTI2LCJqdGkiOiJlZDBjOTRlMGM4Njg0MmU1ODI4NWM0NTI0NmJlMjgzMiIsInVzZXJfaWQiOjF9.g8de3LnNuiHnDyXnXXcuRzQ8avW-zXBfpjWWbuD1aec'
 		);
 		getAssignments();
 	}, []);
@@ -64,41 +64,6 @@ const HomeScreen = () => {
 					{/* Welcome Text */}
 					<WelcomeHeader />
 
-					{/* <View
-						style={{
-							marginBottom: 40,
-							shadowColor: COLORS.black,
-							shadowOffset: {
-								width: 0,
-								height: 10
-							},
-							shadowOpacity: 0.25,
-							shadowRadius: 3.84,
-
-							elevation: 5
-						}}
-					>
-						<FlatList
-							horizontal
-							data={assignment}
-							listKey="category"
-							keyExtractor={(item) => `category-${item.id}`}
-							showsHorizontalScrollIndicator={false}
-							contentContainerStyle={{
-								marginTop: SIZES.padding
-							}}
-							renderItem={({ item, index }) => (
-								<VerticalImageCard
-									containerStyle={{
-										marginLeft: index == 0 ? SIZES.padding : SIZES.radius,
-										// marginRight: index == dummydata.length - 1 ? SIZES.padding : 0
-									}}
-									course={item}
-								/>
-							)}
-						/>
-					</View> */}
-
 					<View
 						style={{
 							marginTop: SIZES.padding * 0.9
@@ -116,19 +81,70 @@ const HomeScreen = () => {
 								}}
 								renderItem={({ item, index }) => (
 									<CategoryCard
+										moveToNextDay={(d) => {
+											console.log('clicked', d);
+											setTheArray((oldArray) => [ ...oldArray, item ]);
+										}}
 										data_type={'home'}
 										category={item}
 										containerStyle={{
-											height: SIZES.height * 0.5,
+											height: SIZES.height * 0.3,
 											width: SIZES.width * 0.8,
 											// width: (SIZES.width - SIZES.padding * 2 - SIZES.radius) / 2,
-											marginTop: SIZES.radius,
 											marginLeft: (index + 1) % 2 == 0 ? SIZES.radius : SIZES.padding
 										}}
 									/>
 								)}
 							/>
 						</ScrollView>
+					</View>
+					{/* {theArray && ( */}
+						<Text
+							style={{
+								textAlign: 'center',
+								color: COLORS.lightOrange,
+								...FONTS.h2,
+								paddingTop: 10
+							}}
+						>
+							Upcoming
+						</Text>
+					{/* )} */}
+					<View
+						style={{
+							marginTop: SIZES.padding * 0.9
+						}}
+					>
+						{/* {theArray && ( */}
+						<ScrollView horizontal={true} style={{ width: SIZES.width }}>
+							<FlatList
+								data={theArray}
+								numColumns={2}
+								scrollEnabled={false}
+								listKey="categories"
+								keyExtractor={(item) => `categories-${item.id}`}
+								contentContainerStyle={{
+									marginTop: SIZES.radius
+								}}
+								renderItem={({ item, index }) => (
+									<CategoryCard
+										moveToNextDay={() => {
+											console.log('clicked');
+										}}
+										data_type={'moved'}
+										category={item}
+										containerStyle={{
+											height: SIZES.height * 0.3,
+											width: SIZES.width * 0.8,
+											// width: (SIZES.width - SIZES.padding * 2 - SIZES.radius) / 2,
+											marginTop: 20,
+											marginLeft: (index + 1) % 2 == 0 ? SIZES.radius : SIZES.padding
+										}}
+									/>
+								)}
+							/>
+						</ScrollView>
+						{/* )} */}
 					</View>
 				</View>
 			</Animated.ScrollView>

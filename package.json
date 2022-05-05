@@ -24,9 +24,11 @@
     "mongoose": "^6.0.13",
     "nodemailer": "^6.7.2",
     "nodemailer-smtp-transport": "^2.7.4",
+    "react-native-elements": "^3.4.2",
     "request": "^2.88.2",
     "sendmail": "^1.6.1",
-    "tzdata": "^1.0.29"
+    "tzdata": "^1.0.29",
+    "firebase": "^7.14.4"
   },
   "devDependencies": {
     "@babel/node": "^7.16.8",
