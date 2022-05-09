@@ -10,7 +10,8 @@ const AuthLayout = ({ title, subtitle, titleContainerStyle, children }) => {
 		<View
 			style={{
 				flex: 1,
-				paddingVertical: SIZES.padding,
+				height:SIZES.height,
+				// paddingVertical: SIZES.padding,
 				backgroundColor: COLORS.white
 			}}
 		>

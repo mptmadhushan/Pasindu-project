@@ -72,7 +72,6 @@ const SignIn = () => {
 			<View
 				style={{
 					flex: 1,
-					marginTop: SIZES.padding * 1
 				}}
 			>
 				{/* Form inputs */}

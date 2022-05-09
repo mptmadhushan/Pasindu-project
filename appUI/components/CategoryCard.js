@@ -9,6 +9,7 @@ import { COLORS, FONTS, SIZES ,images} from "../constants";
 import TextButton from '../components/TextButton';
 const CategoryCard = ({ category, containerStyle ,data_type,moveToNextDay}) => {
 const [postponed, setPostponed] = useState(false);
+//get progress
     var progress =((30 - category?.available_days) / 30) * 100;
  const nextDay = () => {
     setPostponed(true);

@@ -21,6 +21,7 @@ export default function HomeScreen(props) {
 		appId: '1:1031773313369:web:69b48d354d209ff1ead448',
 		measurementId: 'G-4TK1P9HQE8'
 	};
+	
 	const app = initializeApp(firebaseConfig);
 	const db = getFirestore(app);
 

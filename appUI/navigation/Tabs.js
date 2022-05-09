@@ -64,7 +64,7 @@ const Tabs = () => {
                             style={{
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                paddingTop: 15
+                                // paddingTop: 15
                             }}
                         >
                             <Image
@@ -95,7 +95,7 @@ const Tabs = () => {
                             style={{
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                paddingTop: 15
+                                // paddingTop: 15
                             }}
                         >
                             <Image
@@ -157,7 +157,7 @@ const Tabs = () => {
                             style={{
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                paddingTop: 15
+                                // paddingTop: 15
                             }}
                         >
                             <Image
@@ -188,7 +188,7 @@ const Tabs = () => {
                             style={{
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                paddingTop: 15
+                                // paddingTop: 15
                             }}
                         >
                             <Image

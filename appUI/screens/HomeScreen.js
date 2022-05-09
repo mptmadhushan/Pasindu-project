@@ -54,7 +54,7 @@ const HomeScreen = () => {
 	const scrollViewRef = React.useRef();
 
 	return (
-		<View>
+		<View style={{height:SIZES.height}}>
 			<Animated.ScrollView>
 				<View
 					style={{
