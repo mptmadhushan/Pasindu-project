@@ -13,23 +13,36 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { WelcomeHeader, CategoryCard, VerticalImageCard } from '../components';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { constants, images, SIZES, COLORS, FONTS, dummydata } from '../constants';
 import APIKit, { setClientToken } from '../helpers/apiKit';
 
 const HomeScreen = () => {
 	const navigation = useNavigation();
 	const [ assignment, setAssignment ] = React.useState('');
+	const [ user, setUser ] = React.useState('');
 	const [ theArray, setTheArray ] = React.useState('');
 	useLayoutEffect(() => {
 		navigation.setOptions({
 			headerShown: false
 		});
-		setClientToken(
-			'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUxOTkzNTI2LCJqdGkiOiJlZDBjOTRlMGM4Njg0MmU1ODI4NWM0NTI0NmJlMjgzMiIsInVzZXJfaWQiOjF9.g8de3LnNuiHnDyXnXXcuRzQ8avW-zXBfpjWWbuD1aec'
-		);
-		getAssignments();
+		getData();
 	}, []);
+
+	const getData = async () => {
+		try {
+			const value = await AsyncStorage.getItem('@storage_Key');
+			console.log('🚀 HomeScreen.js', value);
+			setClientToken(value);
+			getAssignments();
+			if (value !== null) {
+				// value previously stored
+			}
+		} catch (e) {
+			// error reading value
+		}
+	};
+
 	const getAssignments = () => {
 		const onSuccess = ({ data }) => {
 			console.log('logged in', data.assignment_details.assignment_set);
@@ -38,10 +51,9 @@ const HomeScreen = () => {
 
 		const onFailure = (error) => {
 			if (error.response) {
-				console.log(error.response.data);
+				// console.log(error.response.data);
 				// Toast.showWithGravity(error.response.data.message, Toast.LONG, Toast.TOP);
-
-				console.log(error.response);
+				// console.log(error.response);
 				// console.log(error.response.headers);
 			}
 			// this.setState({errors: error.response.data, isLoading: false});
@@ -54,7 +66,7 @@ const HomeScreen = () => {
 	const scrollViewRef = React.useRef();
 
 	return (
-		<View style={{height:SIZES.height}}>
+		<View style={{ height: SIZES.height }}>
 			<Animated.ScrollView>
 				<View
 					style={{
@@ -98,22 +110,20 @@ const HomeScreen = () => {
 							/>
 						</ScrollView>
 					</View>
-					{/* {theArray && ( */}
-						<Text
-							style={{
-								textAlign: 'center',
-								color: COLORS.lightOrange,
-								...FONTS.h2,
-								paddingTop: 10
-							}}
-						>
-							Upcoming
-						</Text>
-					{/* )} */}
-					<View
+
+					<Text
 						style={{
-							marginTop: 10
+							textAlign: 'center',
+							color: COLORS.lightOrange,
+							...FONTS.h2,
+							paddingTop: 10
 						}}
+					>
+						{theArray && 'Upcoming'}
+					</Text>
+
+					<View
+						
 					>
 						{/* {theArray && ( */}
 						<ScrollView horizontal={true} style={{ width: SIZES.width }}>

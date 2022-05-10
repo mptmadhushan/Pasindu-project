@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, Modal, Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import styles from './CrudStyle';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, addDoc, updateDoc } from 'firebase/firestore/lite';
+import { getFirestore, getDoc, collection, doc, deleteDoc, getDocs, addDoc, updateDoc } from 'firebase/firestore/lite';
 export default function HomeScreen(props) {
 	const [ entityTitle, setEntityTitle ] = useState('');
 	const [ entityDesc, setEntityDesc ] = useState('');
-	const [ entityText, setEntityText ] = useState('');
+	const [ selectedItem, setItem ] = useState('');
+	const [ entityTitleUp, setEntityTitleUp ] = useState('');
+	const [ entityDescUp, setEntityDescUp ] = useState('');
 	const [ entities, setEntities ] = useState([]);
-
+	const [ colors, setColors ] = useState([ { name: 'Loading...', id: 'initial' } ]);
+	const [ modalVisible, setModalVisible ] = useState(false);
 	// const entityRef = db.firestore().collection('entities');
 	const userID = '123';
 	const firebaseConfig = {
@@ -21,7 +24,7 @@ export default function HomeScreen(props) {
 		appId: '1:1031773313369:web:69b48d354d209ff1ead448',
 		measurementId: 'G-4TK1P9HQE8'
 	};
-	
+
 	const app = initializeApp(firebaseConfig);
 	const db = getFirestore(app);
 
@@ -34,7 +37,11 @@ export default function HomeScreen(props) {
 
 		const citySnapshot = await getDocs(citiesCol);
 		const cityList = citySnapshot.docs.map((doc) => doc.data());
-		console.log('🚀 ~ cityList', cityList);
+		// citySnapshot.forEach((doc) => {
+		// 	// console.log(doc.id, '=>🚀', doc.data());
+		// });
+		setColors(citySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+		// console.log('🚀 ~ cityList', cityList);
 		setEntities(cityList);
 		return cityList;
 	}
@@ -46,34 +53,48 @@ export default function HomeScreen(props) {
 		};
 		const citiesCol = collection(db, 'notes');
 		const res = await addDoc(citiesCol, data);
-
-		console.log('🎎 res', res);
+			setEntityTitle('');
+			setEntityDesc('');
 		getCities();
 	}
-	async function onUpdateButtonPress() {
-		console.log('🎎 es');
+	async function updateData() {
+		console.log('selectedItem --<', selectedItem);
 		const data = {
-			title: entityTitle,
-			desc: entityDesc
+			title: entityTitleUp,
+			desc: entityDescUp
 		};
-		// const citiesCol = collection(db, 'notes');
-		// const res = await updateDoc(citiesCol, data);
-		const washingtonRef = collection(db, 'notes');
 
-		// Set the "capital" field of the city 'DC'
-		await updateDoc('M21losVfwvFwWHggTlAT', {
-			title: 'updated'
-		});
-		console.log('🎎 res');
-		// getCities();
+		const docRef = doc(db, `notes/${selectedItem.id}`);
+		const docSnap = await getDoc(docRef);
+		await updateDoc(docRef, data);
+		console.log('🚀 ~updateData ~ res', docSnap);
+		getCities();
+		setModalVisible(false);
+	}
+	async function deleteData() {
+		console.log('selectedItem --<', selectedItem);
+
+		const docRef = doc(db, `notes/${selectedItem.id}`);
+		const docSnap = await getDoc(docRef);
+		await deleteDoc(docRef);
+		console.log('🚀 ~updateData ~ res', docSnap);
+		getCities();
+		setModalVisible(false);
+	}
+	function onUpdateButtonPress(item) {
+		console.log('🎎 es', item);
+		setModalVisible(true);
+		setEntityTitleUp(item.title);
+		setEntityDescUp(item.desc);
+		setItem(item);
 	}
 
 	const renderEntity = ({ item, index }) => {
 		return (
 			<View style={styles.entityContainer}>
-				<TouchableOpacity onPress={onUpdateButtonPress}>
+				<TouchableOpacity key={item.id} onPress={() => onUpdateButtonPress(item)}>
 					<Text style={styles.entityText}>
-						{index}. {item.title}
+						{index + 1}. {item.title}
 					</Text>
 					<Text style={styles.entityText}>{item.desc}</Text>
 				</TouchableOpacity>
@@ -83,6 +104,57 @@ export default function HomeScreen(props) {
 
 	return (
 		<View style={styles.container}>
+			<Modal animationType="slide" transparent={true} visible={modalVisible}>
+				<View style={styles.centeredView}>
+					<View style={styles.modalView}>
+						<Text style={styles.buttonText}>Add</Text>
+
+						<View style={{ display: 'flex', flexDirection: 'row' }}>
+							<TextInput
+								style={{
+									borderRadius: 10,
+									borderWidth: 1,
+									borderColor: '#aaaa',
+									padding: 5,
+									margin: 2
+								}}
+								placeholder="Update Title"
+								placeholderTextColor="#aaaaaa"
+								onChangeText={(text) => setEntityTitleUp(text)}
+								value={entityTitleUp}
+								underlineColorAndroid="transparent"
+								autoCapitalize="none"
+							/>
+							<TextInput
+								style={{
+									borderRadius: 10,
+									borderWidth: 1,
+									borderColor: '#aaaa',
+									padding: 5,
+									margin: 2
+								}}
+								placeholder="Update Description"
+								placeholderTextColor="#aaaaaa"
+								onChangeText={(text) => setEntityDescUp(text)}
+								value={entityDescUp}
+								underlineColorAndroid="transparent"
+								autoCapitalize="none"
+							/>
+						</View>
+						<View style={styles.updateButton}>
+							<TouchableOpacity style={styles.button} onPress={updateData}>
+								<Text style={styles.buttonText}>Update</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={styles.button} onPress={deleteData}>
+								<Text style={styles.buttonText}>Delete</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={styles.button} onPress={() => setModalVisible(false)}>
+								<Text style={styles.buttonText}>Close</Text>
+							</TouchableOpacity>
+						</View>
+					</View>
+				</View>
+			</Modal>
 			<View style={styles.formContainer}>
 				<TextInput
 					style={styles.input}
@@ -106,10 +178,10 @@ export default function HomeScreen(props) {
 					<Text style={styles.buttonText}>Add</Text>
 				</TouchableOpacity>
 			</View>
-			{entities && (
+			{colors && (
 				<View style={styles.listContainer}>
 					<FlatList
-						data={entities}
+						data={colors}
 						renderItem={renderEntity}
 						keyExtractor={(item) => item.id}
 						removeClippedSubviews={true}

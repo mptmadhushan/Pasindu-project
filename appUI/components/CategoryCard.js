@@ -7,6 +7,8 @@ import {
 
 import { COLORS, FONTS, SIZES ,images} from "../constants";
 import TextButton from '../components/TextButton';
+import OpenPdf from 'react-native-open-pdf';
+
 const CategoryCard = ({ category, containerStyle ,data_type,moveToNextDay}) => {
 const [postponed, setPostponed] = useState(false);
 //get progress
@@ -34,7 +36,7 @@ const [postponed, setPostponed] = useState(false);
              <Text
                     style={{
                         color: COLORS.white,
-                        ...FONTS.h2,
+                        ...FONTS.h3,
                     }}
                 >
                     Subject: { data_type==='subjects'&& category?.subject}
@@ -42,7 +44,7 @@ const [postponed, setPostponed] = useState(false);
                 <Text
                     style={{
                         color: COLORS.white,
-                        ...FONTS.h3,
+                        ...FONTS.h4,
                     }}
                 >
                     {category?.title}
@@ -72,7 +74,7 @@ const [postponed, setPostponed] = useState(false);
                 numberOfLines={6}
                     style={{
                         color: COLORS.white,
-                        ...FONTS.h3,
+                        ...FONTS.h4,
                         marginTop: 10,
                         fontSize: 20,
                         color: COLORS.black
@@ -109,13 +111,15 @@ const [postponed, setPostponed] = useState(false);
 							...FONTS.body4
 						}}
 						onPress={() =>
-										Linking.canOpenURL('https://word-extraction.herokuapp.com/'+category.file).then((supported) => {
-											if (supported) {
-												Linking.openURL('https://word-extraction.herokuapp.com/'+category.file);
-											} else {
-												console.log("Don't know how to open URI: " + category.file);
-											}
-										})}
+                            OpenPdf.open('http://www.math.hawaii.edu/~pavel/gcd.pdf')
+										// Linking.canOpenURL('https://word-extraction.herokuapp.com/'+category.file).then((supported) => {
+										// 	if (supported) {
+										// 		Linking.openURL('https://word-extraction.herokuapp.com/'+category.file);
+										// 	} else {
+										// 		console.log("Don't know how to open URI: " + category.file);
+										// 	}
+										// })
+                                        }
 					/>}
                     {data_type==='moved' && <TextButton
 						label="Time doubled"

@@ -31,10 +31,9 @@ const StackNavigator = () => {
         >
             {user ? (
                 <>
-
-                {/* <Stack.Screen name="CrudScreen" component={CrudScreen} /> */}
-                    <Stack.Screen name="SignIn" component={SignIn} />
+                <Stack.Screen name="SignIn" component={SignIn} />
                 <Stack.Screen name="Home" component={HomeScreen} component={Tabs} />
+                <Stack.Screen name="CrudScreen" component={CrudScreen} />
                     <Stack.Screen name="HomeMenu" component={HomeMenu} />
                     <Stack.Screen name="Profile" component={Profile} />
                     <Stack.Screen name="Subjects" component={Subjects} />

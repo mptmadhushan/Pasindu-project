@@ -112,42 +112,12 @@ const Tabs = () => {
                                     color: focused ? COLORS.primary : COLORS.black,
                                     fontSize: 12
                                 }}
-                            >Subjects</Text>
+                            >Notes</Text>
                         </View>
                     )
                 }}
             />
-            <Tab.Screen
-                name="HomeMenu"
-                component={HomeMenu}
-                options={{
-                    tabBarIcon: ({ focused }) => (
-                        <View
-                            style={{
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                top: -30,
-                                ...styles.shadow,
-                                width: 70,
-                                height: 70,
-                                borderRadius: 35,
-                                borderColor: COLORS.black,
-                            }}
-                            backgroundColor={COLORS.primary}
-                        >
-                            <Image
-                                source={icons.code}
-                                resizeMode="contain"
-                                style={{
-                                    width: 90,
-                                    height: 90,
-                                    tintColor: focused ? COLORS.white : COLORS.lightGray1
-                                }}
-                            />
-                        </View>
-                    ),
-                }}
-            />
+           
             <Tab.Screen
                 name="Assignments"
                 component={Assignments}
@@ -174,12 +144,12 @@ const Tabs = () => {
                                     color: focused ? COLORS.primary : COLORS.black,
                                     fontSize: 12
                                 }}
-                            >Assignments</Text>
+                            >Word Extractor</Text>
                         </View>
                     )
                 }}
             />
-            <Tab.Screen
+            {/* <Tab.Screen
                 name="Profile"
                 component={Profile}
                 options={{
@@ -209,7 +179,7 @@ const Tabs = () => {
                         </View>
                     )
                 }}
-            />
+            /> */}
         </Tab.Navigator>
     )
 }

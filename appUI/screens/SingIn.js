@@ -1,8 +1,7 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-// import AsyncStorage from '@react-native-community/async-storage';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthLayout } from '../Authentication';
 import { FONTS, SIZES, COLORS, icons } from '../constants';
 
@@ -25,15 +24,30 @@ const SignIn = () => {
 			headerShown: false
 		});
 	}, []);
-	const storeData = async (value) => {
-		console.log(value);
+	useEffect(() => {
+		getData();
+	}, []);
 
+	const storeData = async (value) => {
 		try {
-			const jsonValue = JSON.stringify(value);
-			// await AsyncStorage.setItem('@storage_Key', jsonValue);
+			await AsyncStorage.setItem('@storage_Key', value.access);
 			navigation.navigate('Home');
 		} catch (e) {
+			console.log(e);
 			// saving error
+		}
+	};
+	const getData = async () => {
+		try {
+			const value = await AsyncStorage.getItem('@storage_Key');
+			console.log('🚀 HomeScreen.js', value);
+			
+			if (value !== '') {
+				console.log('hey 🥪 ');
+				navigation.navigate('Home');
+			}
+		} catch (e) {
+			// error reading value
 		}
 	};
 	const onPressLogin = () => {
@@ -47,7 +61,7 @@ const SignIn = () => {
 		console.log('send data', payload);
 
 		const onSuccess = ({ data }) => {
-			console.log('logged in', data);
+			console.log('logged in', data.access);
 
 			storeData(data);
 		};
@@ -68,10 +82,10 @@ const SignIn = () => {
 		APIKit.post('/auth/jwt/create', payload).then(onSuccess).catch(onFailure);
 	};
 	return (
-		<AuthLayout title="Let's Sign You In" subtitle="Welcome to AppUI!!!">
+		<AuthLayout title="Let's Sign You In" subtitle="Welcome to Smart Diary!!!">
 			<View
 				style={{
-					flex: 1,
+					flex: 1
 				}}
 			>
 				{/* Form inputs */}
