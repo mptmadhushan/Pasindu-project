@@ -5,7 +5,7 @@ import HomeScreen from './screens/HomeScreen';
 import Profile from './screens/Profile';
 import LoginScreen from './screens/LoginScreen';
 import Subjects from './screens/Subjects';
-import Assignments from './screens/Assignments';
+import Assignments from './screens/KeyWordEx';
 import HomeMenu from './screens/HomeMenu';
 import SignIn from './screens/SingIn';
 import ForgotPassword from './screens/ForgotPassword';

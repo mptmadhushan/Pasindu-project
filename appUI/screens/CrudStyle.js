@@ -81,8 +81,9 @@ export default StyleSheet.create({
 	},
 	listContainer: {
 		marginTop: 20,
+		marginBottom:  SIZES.height * 0.2,
 		padding: 20,
-		height: SIZES.height * 0.9
+		height: SIZES.height * 0.75
 	},
 	entityContainer: {
 		marginTop: 16,

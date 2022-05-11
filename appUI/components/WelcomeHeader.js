@@ -2,6 +2,7 @@ import React, { useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { FONTS, COLORS, SIZES, icons, images } from '../constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WelcomeHeader = ({ onPress }) => {
 	const navigation = useNavigation();
@@ -12,6 +13,16 @@ const WelcomeHeader = ({ onPress }) => {
 		});
 	}, []);
 
+	const removeValue = async () => {
+		try {
+			await AsyncStorage.removeItem('@MyApp_key');
+			navigation.navigate('SignIn');
+		} catch (e) {
+			// remove error
+		}
+
+		console.log('Done.');
+	};
 	return (
 		<View
 			style={{
@@ -38,11 +49,14 @@ const WelcomeHeader = ({ onPress }) => {
 			</View>
 			{/* Avatar */}
 			<TouchableOpacity
+				onPress={() => {
+					removeValue();
+				}}
 				style={{
 					flexDirection: 'row',
 					alignItems: 'center',
-                    justifyContent:'center',
-                    alignSelf:'center'
+					justifyContent: 'center',
+					alignSelf: 'center'
 				}}
 			>
 				<Text

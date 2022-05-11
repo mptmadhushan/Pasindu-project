@@ -13,6 +13,7 @@ const CategoryCard = ({ category, containerStyle ,data_type,moveToNextDay}) => {
 const [postponed, setPostponed] = useState(false);
 //get progress
     var progress =((30 - category?.available_days) / 30) * 100;
+    var progress2 =((29 - category?.available_days) / 30) * 100;
  const nextDay = () => {
     setPostponed(true);
  }
@@ -39,7 +40,7 @@ const [postponed, setPostponed] = useState(false);
                         ...FONTS.h3,
                     }}
                 >
-                    Subject: { data_type==='subjects'&& category?.subject}
+                  { data_type==='home'&&`Subject: ${category?.subject}`}
                 </Text>
                 <Text
                     style={{
@@ -56,19 +57,19 @@ const [postponed, setPostponed] = useState(false);
                         ...FONTS.h4,
                     }}
                 >
-                    Available days : {category?.available_days}
+                    Available days : {data_type==='moved'?category?.available_days -1:category?.available_days}
                 </Text>
                 <Text
-                numberOfLines={6}
+                numberOfLines={3}
                     style={{
                         color: COLORS.white,
-                        ...FONTS.h3,
+                        ...FONTS.body5,
                         marginTop: 10,
-                        fontSize: 20,
+                       
                         color: COLORS.black
                     }}
                 >
-                    {!data_type==='subjects'&& category?.description}
+                    {data_type==='moved'&& category?.description}
                 </Text>
                  <Text
                 numberOfLines={6}
@@ -80,7 +81,7 @@ const [postponed, setPostponed] = useState(false);
                         color: COLORS.black
                     }}
                 >
-                   completed: {Math.round(progress)}%
+                   completed: {data_type==='moved' ? Math.round(progress) :Math.round(progress2)}%
                 </Text>
               
                {data_type==='home'&& <TextButton
@@ -126,7 +127,7 @@ const [postponed, setPostponed] = useState(false);
 						buttonContainerStyle={{
 						height: 35,
 						alignItems: 'center',
-						marginTop: SIZES.padding,
+						marginTop:5,
 						borderRadius: SIZES.radius,
 						backgroundColor: COLORS.primary
 					}}
