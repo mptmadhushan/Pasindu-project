@@ -9,17 +9,19 @@ const python = require("../assets/images/python.png");
 const java = require("../assets/images/java.png");
 const code = require("../assets/images/code.png");
 const code1 = require("../assets/images/code1.png");
+const bell = require("../assets/icons/bell.png");
 
 export default {
-    bg_1,
-    bg_2,
-    bg_3,
-    bg_4,
-    bg_5,
-    bg_6,
-    js,
-    python,
-    java,
-    code,
-    code1
-}
+  bg_1,
+  bg_2,
+  bell,
+  bg_3,
+  bg_4,
+  bg_5,
+  bg_6,
+  js,
+  python,
+  java,
+  code,
+  code1,
+};

@@ -121,10 +121,10 @@ const CategoryCard = ({
               ...FONTS.body4,
             }}
             onPress={
-              () =>
-                OpenPdf.open(
-                  "https://word-extraction.herokuapp.com/" + category.file
-                )
+              () => console.log("hey", category.file)
+              // OpenPdf.open(
+              //   "https://word-extraction.herokuapp.com/" + category.file
+              // )
               // Linking.canOpenURL('https://word-extraction.herokuapp.com/'+category.file).then((supported) => {
               // 	if (supported) {
               // 		Linking.openURL('https://word-extraction.herokuapp.com/'+category.file);
